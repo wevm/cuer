@@ -6,7 +6,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "cuer": ["src/index.ts"]
+      "cuer": ["src/index.tsx"]
     }
   }
 }

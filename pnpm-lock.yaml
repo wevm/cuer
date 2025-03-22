@@ -20,9 +20,24 @@ importers:
       '@types/node':
         specifier: ^22.5.4
         version: 22.5.4
+      '@types/qrcode':
+        specifier: ^1.5.5
+        version: 1.5.5
+      '@types/react':
+        specifier: ^19
+        version: 19.0.12
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.0.4(@types/react@19.0.12)
       knip:
         specifier: ^5.27.2
         version: 5.27.2(@types/node@22.5.4)(typescript@5.8.2)
+      react:
+        specifier: ^19
+        version: 19.0.0
+      react-dom:
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
       rimraf:
         specifier: ^5.0.10
         version: 5.0.10
@@ -731,6 +746,9 @@ packages:
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
+
+  '@types/qrcode@1.5.5':
+    resolution: {integrity: sha512-CdfBi/e3Qk+3Z/fXYShipBT13OJ2fDO2Q2w5CIP5anLTLIndQG9z6P1cnm+8zCWSpm5dnxMFd/uREtb0EXuQzg==}
 
   '@types/react-dom@19.0.4':
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
@@ -2238,6 +2256,10 @@ snapshots:
   '@types/node@22.5.4':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/qrcode@1.5.5':
+    dependencies:
+      '@types/node': 22.5.4
 
   '@types/react-dom@19.0.4(@types/react@19.0.12)':
     dependencies:

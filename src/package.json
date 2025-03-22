@@ -18,6 +18,8 @@
     "qrcode": "^1"
   },
   "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
     "typescript": ">=5.4.0"
   },
   "peerDependenciesMeta": {
