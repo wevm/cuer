@@ -9,12 +9,7 @@ export type QrCode = {
 }
 
 export function create(value: string, options: QrCode.Options = {}): QrCode {
-  const { errorCorrectionLevel = 'medium' } = options
-
-  const data = QRCode.create(value, {
-    ...options,
-    errorCorrectionLevel,
-  }).modules.data
+  const data = QRCode.create(value, options).modules.data
 
   const finderLength = 7
   const totalLength = data.length

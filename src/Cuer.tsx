@@ -24,10 +24,26 @@ export namespace Cuer {
   }>(null as never)
 
   export function Root(props: Root.Props) {
-    const { cellSize = 10, children, value } = props
+    const {
+      cellSize = 10,
+      children,
+      errorCorrectionLevel,
+      maskPattern,
+      toSJISFunc,
+      value,
+      version,
+    } = props
 
-    const qrcode = React.useMemo(() => QrCode.create(value), [value])
-
+    const qrcode = React.useMemo(
+      () =>
+        QrCode.create(value, {
+          errorCorrectionLevel,
+          maskPattern,
+          toSJISFunc,
+          version,
+        }),
+      [value, errorCorrectionLevel, maskPattern, toSJISFunc, version],
+    )
     const edgeSize = qrcode.edgeLength * cellSize
     const finderSize = (qrcode.finderLength * cellSize) / 2
 
@@ -47,10 +63,12 @@ export namespace Cuer {
   }
 
   export namespace Root {
-    export type Props = React.PropsWithChildren<{
-      cellSize?: number | undefined
-      value: string
-    }>
+    export type Props = React.PropsWithChildren<
+      QrCode.QrCode.Options & {
+        cellSize?: number | undefined
+        value: string
+      }
+    >
   }
 
   // TODO:
