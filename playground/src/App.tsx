@@ -3,7 +3,7 @@ import { Cuer } from 'cuer'
 export function App() {
   return (
     <div style={{ width: '20vh', height: '20vh' }}>
-      <Cuer value="https://www.youtube.com/watch?v=DNtevlp5b4w" />
+      <Cuer errorCorrectionLevel="low" value="https://tinyurl.com/2x9zjuv7" />
     </div>
   )
 }
