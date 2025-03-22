@@ -2,8 +2,8 @@ import { Cuer } from 'cuer'
 
 export function App() {
   return (
-    <div style={{ width: '50vh', height: '50vh' }}>
-      <Cuer value="0xd2135CfB216b74109775236E36d4b433F1DF507B" />
+    <div style={{ width: '20vh', height: '20vh' }}>
+      <Cuer value="https://www.youtube.com/watch?v=DNtevlp5b4w" />
     </div>
   )
 }

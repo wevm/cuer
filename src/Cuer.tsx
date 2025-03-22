@@ -25,7 +25,6 @@ export namespace Cuer {
 
   export function Root(props: Root.Props) {
     const {
-      cellSize = 10,
       children,
       errorCorrectionLevel,
       maskPattern,
@@ -44,6 +43,8 @@ export namespace Cuer {
         }),
       [value, errorCorrectionLevel, maskPattern, toSJISFunc, version],
     )
+
+    const cellSize = 1
     const edgeSize = qrcode.edgeLength * cellSize
     const finderSize = (qrcode.finderLength * cellSize) / 2
 
@@ -65,7 +66,6 @@ export namespace Cuer {
   export namespace Root {
     export type Props = React.PropsWithChildren<
       QrCode.QrCode.Options & {
-        cellSize?: number | undefined
         value: string
       }
     >
@@ -153,7 +153,7 @@ export namespace Cuer {
         if (finder) return
 
         // Add padding by reducing dot size
-        const padding = cellSize * 0.15
+        const padding = cellSize * 0.1
         const r = (cellSize - padding * 2) / 2
 
         return (
