@@ -36,7 +36,7 @@ export function App() {
       <Cuer.Finder fill="red" radius={0} />
       <Cuer.Cells fill="blue" radius={0} />
       <Cuer.Arena>
-        <img src="https://example.com/foo.png />
+        <img src="https://example.com/logo.png" />
       </Cuer.Arena>
     </Cuer.Root>
   )
