@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "pnpm clean && tsc --project ./tsconfig.build.json",
-    "changeset:prepublish": "pnpm version:update && pnpm build && tsx scripts/prepublish.ts",
+    "changeset:prepublish": "pnpm build && tsx scripts/prepublish.ts",
     "changeset:publish": "pnpm changeset:prepublish && changeset publish",
-    "changeset:version": "changeset version && pnpm version:update && pnpm format",
+    "changeset:version": "changeset version && pnpm format",
     "check": "biome check . --fix --unsafe",
     "check:repo": "sherif",
     "check:types": "tsc --noEmit",
@@ -18,8 +18,7 @@
     "postinstall": "pnpm preconstruct",
     "preconstruct": "tsx ./scripts/preconstruct.ts",
     "preinstall": "pnpx only-allow pnpm",
-    "prepare": "pnpm simple-git-hooks",
-    "version:update": "tsx ./scripts/update-version.ts"
+    "prepare": "pnpm simple-git-hooks"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
