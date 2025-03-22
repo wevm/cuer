@@ -35,6 +35,9 @@ export function App() {
     <Cuer.Root value="https://wevm.dev">
       <Cuer.Finder fill="red" radius={0} />
       <Cuer.Cells fill="blue" radius={0} />
+      <Cuer.Arena>
+        <img src="https://example.com/foo.png />
+      </Cuer.Arena>
     </Cuer.Root>
   )
 }
