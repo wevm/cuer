@@ -1,0 +1,8 @@
+name: "Install dependencies"
+description: "Prepare repository and all dependencies"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up pnpm
+      uses: wevm/actions/.github/actions/pnpm@main

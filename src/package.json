@@ -1,0 +1,39 @@
+{
+  "name": "cuer",
+  "description": "Opinionated QR Code component for React",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./_dist/index.js",
+  "types": "./_dist/index.d.ts",
+  "typings": "./_dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "*",
+    "!**/_test/**",
+    "!**/*.tsbuildinfo",
+    "!tsconfig.build.json",
+    "!jsr.json"
+  ],
+  "dependencies": {
+    "qrcode": "^1"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.4.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "license": "MIT",
+  "homepage": "https://wevm.dev",
+  "repository": "wevm/cuer",
+  "authors": ["jxom"],
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/wevm"
+    }
+  ],
+  "keywords": ["qr", "code", "react"]
+}
