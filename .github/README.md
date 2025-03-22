@@ -2,12 +2,10 @@
 
 Opinionated QR Code for React
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wevm/cuer/main/.github/qr-dark.svg">
-    <img alt="cuer logo" src="https://raw.githubusercontent.com/wevm/cuer/main/.github/qr-light.svg" width="auto" height="60">
-  </picture>
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./qr-dark.svg">
+  <img alt="cuer logo" src="./qr-light.svg" width="auto" height="150px">
+</picture>
 
 ## Install
 
