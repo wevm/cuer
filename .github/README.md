@@ -1,6 +1,6 @@
 # Cuer
 
-Opinionated QR Code component for React
+Opinionated QR Code for React
 
 ## Install
 
