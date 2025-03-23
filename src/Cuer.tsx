@@ -9,16 +9,20 @@ export function Cuer(props: Cuer.Props) {
       <Cuer.Cells />
       {arena && (
         <Cuer.Arena>
-          <img
-            alt="Arena"
-            src={arena}
-            style={{
-              borderRadius: 1,
-              height: '100%',
-              objectFit: 'cover',
-              width: '100%',
-            }}
-          />
+          {typeof arena === 'string' ? (
+            <img
+              alt="Arena"
+              src={arena}
+              style={{
+                borderRadius: 1,
+                height: '100%',
+                objectFit: 'cover',
+                width: '100%',
+              }}
+            />
+          ) : (
+            arena
+          )}
         </Cuer.Arena>
       )}
     </Cuer.Root>
@@ -28,8 +32,9 @@ export function Cuer(props: Cuer.Props) {
 export namespace Cuer {
   export type Props = React.PropsWithChildren<
     QrCode.QrCode.Options & {
-      arena?: string | undefined
+      arena?: React.ReactNode | string | undefined
       className?: string | undefined
+      color?: string | undefined
       size?: React.CSSProperties['width'] | undefined
       value: string
     }
@@ -114,7 +119,7 @@ export namespace Cuer {
   }
 
   export function Finder(props: Finder.Props) {
-    const { className, fill, inner = {}, radius = 1, stroke } = props
+    const { className, fill, innerClassName, radius = 1 } = props
     const { cellSize, edgeSize, finderSize } = React.useContext(Context)
 
     function Inner({ position }: { position: string }) {
@@ -138,8 +143,8 @@ export namespace Cuer {
         <>
           <rect
             className={className}
-            stroke={stroke ?? 'currentColor'}
-            fill={fill ?? 'transparent'}
+            stroke={fill ?? 'currentColor'}
+            fill="transparent"
             x={outerX}
             y={outerY}
             width={cellSize + (finderSize - cellSize) * 2}
@@ -149,8 +154,8 @@ export namespace Cuer {
             strokeWidth={cellSize}
           />
           <rect
-            className={inner.className}
-            fill={inner.fill ?? 'currentColor'}
+            className={innerClassName}
+            fill={fill ?? 'currentColor'}
             x={innerX}
             y={innerY}
             width={cellSize * 3}
@@ -178,9 +183,7 @@ export namespace Cuer {
       React.SVGProps<SVGRectElement>,
       'className' | 'stroke' | 'fill'
     > & {
-      inner?:
-        | Pick<React.SVGProps<SVGRectElement>, 'className' | 'stroke' | 'fill'>
-        | undefined
+      innerClassName?: string | undefined
       radius?: number | undefined
     }
   }
