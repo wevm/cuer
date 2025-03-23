@@ -2,10 +2,25 @@ import * as React from 'react'
 import * as QrCode from './QrCode.js'
 
 export function Cuer(props: Cuer.Props) {
+  const { image, ...rest } = props
   return (
-    <Cuer.Root {...props}>
+    <Cuer.Root {...rest}>
       <Cuer.Finder />
       <Cuer.Cells />
+      {image && (
+        <Cuer.Arena>
+          <img
+            alt="Arena"
+            src={image}
+            style={{
+              borderRadius: 2,
+              height: '100%',
+              objectFit: 'cover',
+              width: '100%',
+            }}
+          />
+        </Cuer.Arena>
+      )}
     </Cuer.Root>
   )
 }
@@ -14,12 +29,14 @@ export namespace Cuer {
   export type Props = React.PropsWithChildren<
     QrCode.QrCode.Options & {
       className?: string | undefined
+      image?: string | undefined
       size?: React.CSSProperties['width'] | undefined
       value: string
     }
   >
 
   export const Context = React.createContext<{
+    arenaSize: number
     cellSize: number
     edgeSize: number
     finderSize: number
@@ -48,9 +65,12 @@ export namespace Cuer {
     const cellSize = 1
     const edgeSize = qrcode.edgeLength * cellSize
     const finderSize = (qrcode.finderLength * cellSize) / 2
+    const arenaSize = Math.floor(edgeSize / 4)
 
     return (
-      <Context.Provider value={{ cellSize, edgeSize, qrcode, finderSize }}>
+      <Context.Provider
+        value={{ arenaSize, cellSize, edgeSize, qrcode, finderSize }}
+      >
         <svg
           {...rest}
           width={size}
@@ -150,7 +170,8 @@ export namespace Cuer {
 
   export function Cells(props: Cells.Props) {
     const { className, fill = 'currentColor', radius = 1 } = props
-    const { cellSize, qrcode } = React.useContext(Context)
+    const { arenaSize, cellSize, qrcode } = React.useContext(Context)
+    const { edgeLength, finderLength } = qrcode
 
     // Build a single path containing all dots
     let path = ''
@@ -162,14 +183,17 @@ export namespace Cuer {
         const cell = row[j]
         if (!cell) continue
 
+        // Skip rendering dots in arena area.
+        const start = edgeLength / 2 - arenaSize / 2
+        const end = start + arenaSize
+        if (i >= start && i <= end && j >= start && j <= end) continue
+
         // Skip rendering dots in the finder pattern areas
-        const topLeftFinder = i < qrcode.finderLength && j < qrcode.finderLength
+        const topLeftFinder = i < finderLength && j < finderLength
         const topRightFinder =
-          i < qrcode.finderLength &&
-          j >= qrcode.edgeLength - qrcode.finderLength
+          i < finderLength && j >= edgeLength - finderLength
         const bottomLeftFinder =
-          i >= qrcode.edgeLength - qrcode.finderLength &&
-          j < qrcode.finderLength
+          i >= edgeLength - finderLength && j < finderLength
         if (topLeftFinder || topRightFinder || bottomLeftFinder) continue
 
         // Add inset for padding
@@ -206,13 +230,48 @@ export namespace Cuer {
 
     return <path className={className} d={path} fill={fill} />
   }
-}
 
-export declare namespace Cells {
-  type Props = Pick<
-    React.SVGProps<SVGPathElement>,
-    'className' | 'filter' | 'fill'
-  > & {
-    radius?: number | undefined
+  export declare namespace Cells {
+    type Props = Pick<
+      React.SVGProps<SVGPathElement>,
+      'className' | 'filter' | 'fill'
+    > & {
+      radius?: number | undefined
+    }
+  }
+
+  export function Arena(props: Arena.Props) {
+    const { children } = props
+    const { arenaSize, cellSize, edgeSize } = React.useContext(Context)
+
+    const start = Math.ceil(edgeSize / 2 - arenaSize / 2)
+    const size = arenaSize + (arenaSize % 2)
+    const padding = cellSize / 2
+
+    return (
+      <foreignObject x={start} y={start} width={size} height={size}>
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            fontSize: 1,
+            justifyContent: 'center',
+            height: '100%',
+            overflow: 'hidden',
+            width: '100%',
+            padding,
+            boxSizing: 'border-box',
+          }}
+        >
+          {children}
+        </div>
+      </foreignObject>
+    )
+  }
+
+  export declare namespace Arena {
+    type Props = {
+      children: React.ReactNode
+    }
   }
 }
