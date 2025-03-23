@@ -1,4 +1,4 @@
-import { encodeQR } from '@paulmillr/qr'
+import { encodeQR } from 'qr'
 
 export type QrCode = {
   edgeLength: number

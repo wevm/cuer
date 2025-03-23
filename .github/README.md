@@ -1,6 +1,6 @@
 # cuer
 
-Opinionated QR Code component for React, powered by [`@paulmillr/qr`](https://github.com/paulmillr/qr)
+Opinionated QR Code component for React, powered by [`qr`](https://github.com/paulmillr/qr)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./qr-dark.svg">

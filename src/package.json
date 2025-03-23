@@ -15,7 +15,7 @@
     "!jsr.json"
   ],
   "dependencies": {
-    "@paulmillr/qr": "~0"
+    "qr": "~0"
   },
   "peerDependencies": {
     "react": ">=18",
