@@ -6,6 +6,7 @@ const demos = [
   {
     code: `<Cuer value="https://cuer.dev" />`,
     preview: <Cuer value="https://cuer.dev" />,
+    title: 'Basic',
   },
   {
     code: `<Cuer\n\tarena="/wevm.svg"\n\tvalue="https://cuer.dev"\n/>`,
@@ -28,6 +29,7 @@ const demos = [
         value="https://cuer.dev"
       />
     ),
+    title: 'Basic (Arena)',
   },
   {
     code: `<Cuer.Root value="https://cuer.dev">
@@ -61,6 +63,7 @@ const demos = [
         </Cuer.Arena>
       </Cuer.Root>
     ),
+    title: 'Advanced (No Radii, No Inset)',
   },
   {
     code: `<Cuer.Root value="https://cuer.dev">
@@ -96,6 +99,7 @@ const demos = [
         </Cuer.Arena>
       </Cuer.Root>
     ),
+    title: 'Advanced (Circular Finder)',
   },
 ]
 const pkgi = ['npm i', 'pnpm i', 'yarn add']
@@ -253,8 +257,11 @@ export function App() {
 
       <div className="h-10" />
 
-      <div className="flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-900 rounded-md">
-        <div className="flex items-center justify-between py-6 px-4">
+      <div className="relative flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-900 rounded-md">
+        <p className="absolute left-4 top-4 text-xs text-zinc-400 dark:text-zinc-500">
+          {demos[demo].title}
+        </p>
+        <div className="flex items-center justify-between py-10 px-4">
           <button
             className="size-10 rounded-full text-lg text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors flex items-center justify-center"
             type="button"

@@ -4,6 +4,7 @@
   color-scheme: light dark;
   background-color: light-dark(white, black);
   color: light-dark(black, white);
+  overflow-x: hidden;
   tab-size: 2;
 }
 
