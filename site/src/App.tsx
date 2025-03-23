@@ -138,23 +138,23 @@ export function App() {
   }, [])
 
   return (
-    <div className="relative flex flex-col items-center justify-center">
-      <div className="absolute top-15 max-sm:top-0 -z-1">
+    <div className="relative flex flex-col items-center justify-center pb-10">
+      <div className="absolute top-0 max-sm:top-0 -z-1">
         <div className="relative overflow-hidden">
           <Cuer.Root
             errorCorrection="high"
-            size="400px"
-            value="abcabasdasdnjakjdnaksdnasjnkdnjasdkasnjdksajksandjaksnsdjndsandjkaskdnasndjkasndnasjdnanskdnjasjdnkajsndjkasdjkasnd"
+            size="600px"
+            value="abcabasdasdnjakjdnaksdnasjnkdnjasdkasnasdnasjdnajskdnajksndajksdnajksdnajksdnajksndajksndjaksndajskndajksndajksndjaksdnjkansdjkasndjkansdjkasndjkasdnasjkdnakjsndkjasndjkasndjkasndjknasdjkasndjkasndjkasndsdjgbsdfhgbdfhjgbdfhjgbjdksajksandjaksnsdjndsandjkaskdnasndjkasndnasjdnanskdnjasjdnkajsndjkasdjkasnd"
           >
             <Cuer.Finder radius={1} />
             <Cuer.Cells />
           </Cuer.Root>
-          <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-radial-[at_50%_50%] dark:from-black/30 dark:to-black from-white/50 to-white to-97%" />
-          <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-linear-to-b dark:from-black/30 dark:to-black from-white/50 to-white to-50%" />
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-radial-[at_50%_50%] dark:from-black/40 dark:to-black from-white/50 to-white to-97%" />
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-linear-to-b dark:from-black/40 dark:to-black from-white/50 to-white to-50%" />
         </div>
       </div>
 
-      <div className="h-30 max-sm:h-15" />
+      <div className="h-15 max-sm:h-15" />
 
       <h1 className="text-4xl font-semibold">cuer</h1>
 
