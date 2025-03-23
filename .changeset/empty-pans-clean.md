@@ -1,5 +1,0 @@
----
-"cuer": patch
----
-
-Initial release.

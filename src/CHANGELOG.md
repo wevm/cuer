@@ -1,0 +1,7 @@
+# cuer
+
+## 0.0.1
+
+### Patch Changes
+
+- [`0095844`](https://github.com/wevm/cuer/commit/0095844592a37b9ee4c90f786b0f9ff68f3c1fc0) Thanks [@jxom](https://github.com/jxom)! - Initial release.
