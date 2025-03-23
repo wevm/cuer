@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light dark;
+  background-color: light-dark(white, black);
+  color: light-dark(black, white);
+  tab-size: 2;
+}
+
+@theme {
+  --default-font-family: 'Geist';
+}
+
+pre.shiki {
+  @apply text-sm w-full;
+
+  --shiki-secondary: light-dark(var(--color-zinc-500), var(--color-zinc-400));
+  --shiki-token-keyword: var(--shiki-secondary);
+  --shiki-token-function: var(--shiki-secondary);
+}
+
+.shiki,
+.shiki span {
+  --shiki-light-bg: var(--color-zinc-50) !important;
+  --shiki-dark-bg: var(--color-zinc-950) !important;
+
+  background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg)) !important;
+}
