@@ -12,9 +12,9 @@ export function create(value: string, options: QrCode.Options = {}): QrCode {
 
   const grid = encodeQR(value, 'raw', {
     border: 0,
-    ecc: errorCorrection as never, // https://github.com/paulmillr/qr/pull/17
+    ecc: errorCorrection,
     scale: 1,
-    version: version as never, // https://github.com/paulmillr/qr/pull/17
+    version: version,
   })
 
   const finderLength = 7
