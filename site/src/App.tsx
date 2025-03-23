@@ -14,8 +14,8 @@ const demos = [
       <Cuer
         arena={
           <svg
-            width="100%"
-            height="100%"
+            width="4px"
+            height="4px"
             viewBox="0 0 128 128"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -331,7 +331,7 @@ export function App() {
         <span>By</span>
         <svg
           className="h-3"
-          width="100%"
+          width="60px"
           height="100%"
           viewBox="0 0 311 63"
           fill="none"
