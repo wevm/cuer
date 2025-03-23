@@ -169,7 +169,7 @@ export function App() {
       <div className="h-4" />
 
       <div className="flex items-center gap-2 h-[34px]">
-        <pre className="relative bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 rounded-md py-1 px-3 pr-8">
+        <pre className="relative bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-md py-1 px-3 pr-8">
           <code className="flex items-center gap-2">
             <button
               className="px-[6px] -mx-[6px] rounded-md text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-900 hover:text-black dark:hover:text-white transition-colors"
@@ -230,7 +230,7 @@ export function App() {
         </pre>
         <a
           href="https://github.com/wevm/cuer"
-          className="flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#121213] hover:text-black dark:hover:text-white transition-colors rounded-md py-1 px-2 h-full"
+          className="flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-[#121213] hover:text-black dark:hover:text-white transition-colors rounded-md py-1 px-2 h-full"
           target="_blank"
           rel="noreferrer"
         >
@@ -257,13 +257,13 @@ export function App() {
 
       <div className="h-10" />
 
-      <div className="relative flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-900 rounded-md">
+      <div className="relative flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-md">
         <p className="absolute left-4 top-4 text-xs text-zinc-400 dark:text-zinc-500">
           {demos[demo].title}
         </p>
         <div className="flex items-center justify-between py-10 px-4">
           <button
-            className="size-10 rounded-full text-lg text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors flex items-center justify-center"
+            className="size-10 rounded-full text-lg text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors flex items-center justify-center"
             type="button"
             onClick={() =>
               setDemo((demo) => (demo + demos.length - 1) % demos.length)
@@ -288,7 +288,7 @@ export function App() {
           </button>
           <div className="size-40">{demos[demo].preview}</div>
           <button
-            className="size-10 rounded-full text-lg text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors flex items-center justify-center"
+            className="size-10 rounded-full text-lg text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors flex items-center justify-center"
             type="button"
             onClick={() => setDemo((demo) => (demo + 1) % demos.length)}
           >
@@ -311,7 +311,7 @@ export function App() {
           </button>
         </div>
 
-        <hr className="w-full border-zinc-100 dark:border-zinc-900" />
+        <hr className="w-full border-zinc-100 dark:border-zinc-800" />
 
         <div
           className="flex-1 p-4 overflow-x-scroll"
