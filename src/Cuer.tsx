@@ -13,7 +13,7 @@ export function Cuer(props: Cuer.Props) {
             alt="Arena"
             src={image}
             style={{
-              borderRadius: 2,
+              borderRadius: 1,
               height: '100%',
               objectFit: 'cover',
               width: '100%',
@@ -44,33 +44,46 @@ export namespace Cuer {
   }>(null as never)
 
   export function Root(props: Root.Props) {
-    const {
-      children,
-      errorCorrection,
-      size = '100%',
-      value,
-      version,
-      ...rest
-    } = props
+    const { children, size = '100%', value, version, ...rest } = props
 
-    const qrcode = React.useMemo(
+    const hasArena = React.useMemo(
       () =>
-        QrCode.create(value, {
-          errorCorrection,
-          version,
-        }),
-      [value, errorCorrection, version],
+        (
+          React.Children.map(children, (child) => {
+            if (!React.isValidElement(child)) return null
+            if (typeof child.type === 'string') return null
+            if (
+              'displayName' in child.type &&
+              child.type.displayName === 'Arena'
+            )
+              return true
+            return null
+          }) ?? []
+        ).some(Boolean),
+      [children],
     )
+
+    const qrcode = React.useMemo(() => {
+      let errorCorrection = props.errorCorrection
+      if (hasArena && errorCorrection === 'low') errorCorrection = 'medium'
+      return QrCode.create(value, {
+        errorCorrection,
+        version,
+      })
+    }, [value, hasArena, props.errorCorrection, version])
 
     const cellSize = 1
     const edgeSize = qrcode.edgeLength * cellSize
     const finderSize = (qrcode.finderLength * cellSize) / 2
-    const arenaSize = Math.floor(edgeSize / 4)
+    const arenaSize = hasArena ? Math.floor(edgeSize / 4) : 0
+
+    const context = React.useMemo(
+      () => ({ arenaSize, cellSize, edgeSize, qrcode, finderSize }),
+      [arenaSize, edgeSize, qrcode, finderSize],
+    )
 
     return (
-      <Context.Provider
-        value={{ arenaSize, cellSize, edgeSize, qrcode, finderSize }}
-      >
+      <Context.Provider value={context}>
         <svg
           {...rest}
           width={size}
@@ -86,6 +99,8 @@ export namespace Cuer {
   }
 
   export namespace Root {
+    export const displayName = 'Root'
+
     export type Props = React.PropsWithChildren<
       QrCode.QrCode.Options &
         Omit<
@@ -129,8 +144,8 @@ export namespace Cuer {
             y={outerY}
             width={cellSize + (finderSize - cellSize) * 2}
             height={cellSize + (finderSize - cellSize) * 2}
-            rx={radius * (finderSize - cellSize)}
-            ry={radius * (finderSize - cellSize)}
+            rx={0.5 * radius * (finderSize - cellSize)}
+            ry={0.5 * radius * (finderSize - cellSize)}
             strokeWidth={cellSize}
           />
           <rect
@@ -140,8 +155,8 @@ export namespace Cuer {
             y={innerY}
             width={cellSize * 3}
             height={cellSize * 3}
-            rx={radius * cellSize}
-            ry={radius * cellSize}
+            rx={0.5 * radius * cellSize}
+            ry={0.5 * radius * cellSize}
           />
         </>
       )
@@ -157,6 +172,8 @@ export namespace Cuer {
   }
 
   export namespace Finder {
+    export const displayName = 'Finder'
+
     export type Props = Pick<
       React.SVGProps<SVGRectElement>,
       'className' | 'stroke' | 'fill'
@@ -169,73 +186,93 @@ export namespace Cuer {
   }
 
   export function Cells(props: Cells.Props) {
-    const { className, fill = 'currentColor', radius = 1 } = props
+    const {
+      className,
+      fill = 'currentColor',
+      inset: inset_ = true,
+      radius = 1,
+    } = props
     const { arenaSize, cellSize, qrcode } = React.useContext(Context)
     const { edgeLength, finderLength } = qrcode
 
-    // Build a single path containing all dots
-    let path = ''
+    const path = React.useMemo(() => {
+      let path = ''
 
-    for (let i = 0; i < qrcode.grid.length; i++) {
-      const row = qrcode.grid[i]
-      if (!row) continue
-      for (let j = 0; j < row.length; j++) {
-        const cell = row[j]
-        if (!cell) continue
+      for (let i = 0; i < qrcode.grid.length; i++) {
+        const row = qrcode.grid[i]
+        if (!row) continue
+        for (let j = 0; j < row.length; j++) {
+          const cell = row[j]
+          if (!cell) continue
 
-        // Skip rendering dots in arena area.
-        const start = edgeLength / 2 - arenaSize / 2
-        const end = start + arenaSize
-        if (i >= start && i <= end && j >= start && j <= end) continue
+          // Skip rendering dots in arena area.
+          const start = edgeLength / 2 - arenaSize / 2
+          const end = start + arenaSize
+          if (i >= start && i <= end && j >= start && j <= end) continue
 
-        // Skip rendering dots in the finder pattern areas
-        const topLeftFinder = i < finderLength && j < finderLength
-        const topRightFinder =
-          i < finderLength && j >= edgeLength - finderLength
-        const bottomLeftFinder =
-          i >= edgeLength - finderLength && j < finderLength
-        if (topLeftFinder || topRightFinder || bottomLeftFinder) continue
+          // Skip rendering dots in the finder pattern areas
+          const topLeftFinder = i < finderLength && j < finderLength
+          const topRightFinder =
+            i < finderLength && j >= edgeLength - finderLength
+          const bottomLeftFinder =
+            i >= edgeLength - finderLength && j < finderLength
+          if (topLeftFinder || topRightFinder || bottomLeftFinder) continue
 
-        // Add inset for padding
-        const inset = cellSize * 0.1
-        const innerSize = (cellSize - inset * 2) / 2
+          // Add inset for padding
+          const inset = inset_ ? cellSize * 0.1 : 0
+          const innerSize = (cellSize - inset * 2) / 2
 
-        // Calculate center positions
-        const cx = j * cellSize + cellSize / 2
-        const cy = i * cellSize + cellSize / 2
+          // Calculate center positions
+          const cx = j * cellSize + cellSize / 2
+          const cy = i * cellSize + cellSize / 2
 
-        // Calculate edge positions
-        const left = cx - innerSize
-        const right = cx + innerSize
-        const top = cy - innerSize
-        const bottom = cy + innerSize
+          // Calculate edge positions
+          const left = cx - innerSize
+          const right = cx + innerSize
+          const top = cy - innerSize
+          const bottom = cy + innerSize
 
-        // Apply corner radius (clamped to maximum of innerSize)
-        const r = radius * innerSize
+          // Apply corner radius (clamped to maximum of innerSize)
+          const r = radius * innerSize
 
-        path += [
-          `M ${left + r},${top}`,
-          `L ${right - r},${top}`,
-          `A ${r},${r} 0 0,1 ${right},${top + r}`,
-          `L ${right},${bottom - r}`,
-          `A ${r},${r} 0 0,1 ${right - r},${bottom}`,
-          `L ${left + r},${bottom}`,
-          `A ${r},${r} 0 0,1 ${left},${bottom - r}`,
-          `L ${left},${top + r}`,
-          `A ${r},${r} 0 0,1 ${left + r},${top}`,
-          'z',
-        ].join(' ')
+          path += [
+            `M ${left + r},${top}`,
+            `L ${right - r},${top}`,
+            `A ${r},${r} 0 0,1 ${right},${top + r}`,
+            `L ${right},${bottom - r}`,
+            `A ${r},${r} 0 0,1 ${right - r},${bottom}`,
+            `L ${left + r},${bottom}`,
+            `A ${r},${r} 0 0,1 ${left},${bottom - r}`,
+            `L ${left},${top + r}`,
+            `A ${r},${r} 0 0,1 ${left + r},${top}`,
+            'z',
+          ].join(' ')
+        }
       }
-    }
+
+      return path
+    }, [
+      arenaSize,
+      cellSize,
+      edgeLength,
+      finderLength,
+      qrcode.grid,
+      inset_,
+      radius,
+    ])
 
     return <path className={className} d={path} fill={fill} />
   }
 
-  export declare namespace Cells {
-    type Props = Pick<
+  export namespace Cells {
+    export const displayName = 'Cells'
+
+    export type Props = Pick<
       React.SVGProps<SVGPathElement>,
       'className' | 'filter' | 'fill'
     > & {
+      hasArena?: boolean | undefined
+      inset?: boolean | undefined
       radius?: number | undefined
     }
   }
@@ -269,8 +306,10 @@ export namespace Cuer {
     )
   }
 
-  export declare namespace Arena {
-    type Props = {
+  export namespace Arena {
+    export const displayName = 'Arena'
+
+    export type Props = {
       children: React.ReactNode
     }
   }
