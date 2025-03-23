@@ -2,16 +2,16 @@ import * as React from 'react'
 import * as QrCode from './QrCode.js'
 
 export function Cuer(props: Cuer.Props) {
-  const { image, ...rest } = props
+  const { arena, ...rest } = props
   return (
     <Cuer.Root {...rest}>
       <Cuer.Finder />
       <Cuer.Cells />
-      {image && (
+      {arena && (
         <Cuer.Arena>
           <img
             alt="Arena"
-            src={image}
+            src={arena}
             style={{
               borderRadius: 1,
               height: '100%',
@@ -28,8 +28,8 @@ export function Cuer(props: Cuer.Props) {
 export namespace Cuer {
   export type Props = React.PropsWithChildren<
     QrCode.QrCode.Options & {
+      arena?: string | undefined
       className?: string | undefined
-      image?: string | undefined
       size?: React.CSSProperties['width'] | undefined
       value: string
     }
