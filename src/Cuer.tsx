@@ -24,24 +24,15 @@ export namespace Cuer {
   }>(null as never)
 
   export function Root(props: Root.Props) {
-    const {
-      children,
-      errorCorrectionLevel,
-      maskPattern,
-      toSJISFunc,
-      value,
-      version,
-    } = props
+    const { children, errorCorrection, value, version } = props
 
     const qrcode = React.useMemo(
       () =>
         QrCode.create(value, {
-          errorCorrectionLevel,
-          maskPattern,
-          toSJISFunc,
+          errorCorrection,
           version,
         }),
-      [value, errorCorrectionLevel, maskPattern, toSJISFunc, version],
+      [value, errorCorrection, version],
     )
 
     const cellSize = 1
@@ -135,41 +126,44 @@ export namespace Cuer {
 
   // TODO:
   // - Customize radius
-  // - Customize rect props
+  // - Customize path props
   export function Cells() {
     const { cellSize, qrcode } = React.useContext(Context)
 
-    return qrcode.matrix.map((row, i) =>
-      row.map((cell, j) => {
-        if (!cell) return
+    // Build a single path containing all dots
+    let path = ''
+
+    for (let i = 0; i < qrcode.grid.length; i++) {
+      const row = qrcode.grid[i]
+      if (!row) continue
+      for (let j = 0; j < row.length; j++) {
+        const cell = row[j]
+        if (!cell) continue
 
         // Skip rendering dots in the finder pattern areas
-        const finder =
-          (i < qrcode.finderLength && j < qrcode.finderLength) ||
-          (i < qrcode.finderLength &&
-            j >= qrcode.edgeLength - qrcode.finderLength) ||
-          (i >= qrcode.edgeLength - qrcode.finderLength &&
-            j < qrcode.finderLength)
-        if (finder) return
+        const topLeftFinder = i < qrcode.finderLength && j < qrcode.finderLength
+        const topRightFinder =
+          i < qrcode.finderLength &&
+          j >= qrcode.edgeLength - qrcode.finderLength
+        const bottomLeftFinder =
+          i >= qrcode.edgeLength - qrcode.finderLength &&
+          j < qrcode.finderLength
+        if (topLeftFinder || topRightFinder || bottomLeftFinder) continue
 
-        // Add padding by reducing dot size
-        const padding = cellSize * 0.1
-        const r = (cellSize - padding * 2) / 2
+        // Add inset for padding
+        const inset = cellSize * 0.1
+        const r = (cellSize - inset * 2) / 2
 
-        return (
-          <rect
-            // biome-ignore lint/suspicious/noArrayIndexKey:
-            key={`${i}-${j}`}
-            x={j * cellSize + cellSize / 2 - r}
-            y={i * cellSize + cellSize / 2 - r}
-            width={r * 2}
-            height={r * 2}
-            rx={r}
-            ry={r}
-            fill="currentColor"
-          />
-        )
-      }),
-    )
+        // Calculate center positions
+        const cx = j * cellSize + cellSize / 2
+        const cy = i * cellSize + cellSize / 2
+
+        // Add circle subpath to the overall path data
+        // M cx,cy-r a r,r 0 1,0 0,2r a r,r 0 1,0 0,-2r z
+        path += `M ${cx},${cy - r} a ${r},${r} 0 1,0 0,${r * 2} a ${r},${r} 0 1,0 0,${-r * 2} z `
+      }
+    }
+
+    return <path d={path} fill="currentColor" />
   }
 }

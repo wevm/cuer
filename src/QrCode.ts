@@ -1,37 +1,36 @@
-import QRCode from 'qrcode'
+import { encodeQR } from '@paulmillr/qr'
 
 export type QrCode = {
   edgeLength: number
   finderLength: number
-  matrix: number[][]
-  totalLength: number
+  grid: boolean[][]
   value: string
 }
 
 export function create(value: string, options: QrCode.Options = {}): QrCode {
-  const data = QRCode.create(value, options).modules.data
+  const { errorCorrection, version } = options
+
+  const grid = encodeQR(value, 'raw', {
+    border: 0,
+    ecc: errorCorrection as never, // https://github.com/paulmillr/qr/pull/17
+    scale: 1,
+    version: version as never, // https://github.com/paulmillr/qr/pull/17
+  })
 
   const finderLength = 7
-  const totalLength = data.length
-  const edgeLength = Math.sqrt(totalLength)
-
-  const matrix = new Array(edgeLength)
-    .fill(0)
-    .map((_, i) =>
-      new Array(edgeLength)
-        .fill(0)
-        .map((_, j) => data[i * edgeLength + j] ?? 0),
-    )
+  const edgeLength = grid.length
 
   return {
     edgeLength,
     finderLength,
-    matrix,
-    totalLength,
+    grid,
     value,
   }
 }
 
 export declare namespace QrCode {
-  type Options = QRCode.QRCodeOptions
+  type Options = {
+    errorCorrection?: 'high' | 'low' | 'medium' | 'quartile' | undefined
+    version?: number | undefined
+  }
 }

@@ -15,7 +15,7 @@
     "!jsr.json"
   ],
   "dependencies": {
-    "qrcode": "^1"
+    "@paulmillr/qr": "~0"
   },
   "peerDependencies": {
     "react": ">=18",
