@@ -17,15 +17,19 @@ npm i cuer
 
 ### Basic
 
+Use the `Cuer` component to render a QR code (with an optional `arena`).
+
 ```tsx
 import { Cuer } from 'cuer'
 
 export function App() {
-  return <Cuer value="https://wevm.dev" />
+  return <Cuer arena="https://example.com/logo.png" value="https://wevm.dev" />
 }
 ```
 
-### Customize
+### Advanced
+
+Further customization is possible by composition components (ie. `Cuer.Root`, `Cuer.Cells`, etc).
 
 ```tsx
 import { Cuer } from 'cuer'
@@ -36,9 +40,16 @@ export function App() {
       <Cuer.Finder fill="red" radius={0} />
       <Cuer.Cells fill="blue" radius={0} />
       <Cuer.Arena>
-        <img src="https://example.com/logo.png" />
+        <img
+          src="https://example.com/logo.png"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
       </Cuer.Arena>
     </Cuer.Root>
   )
 }
 ```
+
+## License
+
+[MIT](/LICENSE) License
