@@ -31,14 +31,30 @@ export function App() {
       />
 
       <Cuer.Root size="20vh" value="https://wevm.dev">
-        <Cuer.Cells />
-        <Cuer.Finder />
+        <Cuer.Cells radius={0} inset={false} />
+        <Cuer.Finder radius={0} />
         <Cuer.Arena>
           <img
             alt="Arena"
             src="https://img.decrypt.co/insecure/rs:fit:2048:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2019/04/vitalik-head-gID_7.jpeg@webp"
             style={{
-              borderRadius: 1,
+              height: '100%',
+              objectFit: 'cover',
+              width: '100%',
+            }}
+          />
+        </Cuer.Arena>
+      </Cuer.Root>
+
+      <Cuer.Root size="20vh" value="https://wevm.dev">
+        <Cuer.Cells />
+        <Cuer.Finder radius={1} />
+        <Cuer.Arena>
+          <img
+            alt="Arena"
+            src="https://img.decrypt.co/insecure/rs:fit:2048:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2019/04/vitalik-head-gID_7.jpeg@webp"
+            style={{
+              borderRadius: 4,
               height: '100%',
               objectFit: 'cover',
               width: '100%',

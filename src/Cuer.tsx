@@ -171,7 +171,7 @@ export namespace Cuer {
    * @returns A {@link React.ReactNode}
    */
   export function Finder(props: Finder.Props) {
-    const { className, fill, innerClassName, radius = 1 } = props
+    const { className, fill, innerClassName, radius = 0.25 } = props
     const { cellSize, edgeSize, finderSize } = React.useContext(Context)
 
     function Inner({ position }: { position: string }) {
@@ -201,8 +201,8 @@ export namespace Cuer {
             y={outerY}
             width={cellSize + (finderSize - cellSize) * 2}
             height={cellSize + (finderSize - cellSize) * 2}
-            rx={0.5 * radius * (finderSize - cellSize)}
-            ry={0.5 * radius * (finderSize - cellSize)}
+            rx={2 * radius * (finderSize - cellSize)}
+            ry={2 * radius * (finderSize - cellSize)}
             strokeWidth={cellSize}
           />
           <rect
@@ -212,8 +212,8 @@ export namespace Cuer {
             y={innerY}
             width={cellSize * 3}
             height={cellSize * 3}
-            rx={0.5 * radius * cellSize}
-            ry={0.5 * radius * cellSize}
+            rx={2 * radius * cellSize}
+            ry={2 * radius * cellSize}
           />
         </>
       )
@@ -235,7 +235,18 @@ export namespace Cuer {
       React.SVGProps<SVGRectElement>,
       'className' | 'stroke' | 'fill'
     > & {
+      /**
+       * Class name for the inner rectangle.
+       */
       innerClassName?: string | undefined
+      /**
+       * Radius scale (between 0 and 1) for the finder.
+       *
+       * - `0`: no radius
+       * - `1`: full radius
+       *
+       * @default 0.25
+       */
       radius?: number | undefined
     }
   }
