@@ -38,4 +38,5 @@ packageJson.exports = exports.dist
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
 
-fs.cpSync(join(import.meta.dirname, '../.github/README.md'), './README.md')
+fs.cpSync(join(import.meta.dirname, '../.github/README.md'), './src/README.md')
+fs.cpSync(join(import.meta.dirname, '../LICENSE'), './src/LICENSE')
