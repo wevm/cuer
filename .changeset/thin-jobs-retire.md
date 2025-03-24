@@ -1,0 +1,5 @@
+---
+"cuer": patch
+---
+
+Updated `qr`.
