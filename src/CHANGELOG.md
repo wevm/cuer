@@ -1,5 +1,11 @@
 # cuer
 
+## 0.0.2
+
+### Patch Changes
+
+- [`eee19dd`](https://github.com/wevm/cuer/commit/eee19dd3995dc7fca1c17eabaa793954184dd001) Thanks [@jxom](https://github.com/jxom)! - Updated `qr`.
+
 ## 0.0.1
 
 ### Patch Changes
