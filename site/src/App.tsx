@@ -142,7 +142,7 @@ export function App() {
   }, [])
 
   return (
-    <div className="relative flex flex-col items-center justify-center pb-10">
+    <div className="relative flex flex-col items-center justify-center pb-10 overflow-x-hidden">
       <div className="absolute top-0 max-sm:top-0 -z-1">
         <div className="relative overflow-hidden">
           <Cuer.Root
@@ -257,7 +257,7 @@ export function App() {
 
       <div className="h-10" />
 
-      <div className="relative flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-md">
+      <div className="relative flex flex-col max-w-xl w-full border bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-md max-[576px]:rounded-none">
         <p className="absolute left-4 top-4 text-xs text-zinc-400 dark:text-zinc-500">
           {demos[demo].title}
         </p>
