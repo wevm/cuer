@@ -83,7 +83,14 @@ export namespace Cuer {
    * @returns A {@link React.ReactNode}
    */
   export function Root(props: Root.Props) {
-    const { children, size = '100%', value, version, ...rest } = props
+    const {
+      children,
+      size = '100%',
+      value,
+      version,
+      errorCorrection,
+      ...rest
+    } = props
 
     // Check if the children contain an `Arena` component.
     const hasArena = React.useMemo(
