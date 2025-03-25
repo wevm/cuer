@@ -83,7 +83,14 @@ export namespace Cuer {
    * @returns A {@link React.ReactNode}
    */
   export function Root(props: Root.Props) {
-    const { children, size = '100%', value, version, ...rest } = props
+    const {
+      children,
+      size = '100%',
+      value,
+      version,
+      errorCorrection,
+      ...rest
+    } = props
 
     // Check if the children contain an `Arena` component.
     const hasArena = React.useMemo(
@@ -105,14 +112,14 @@ export namespace Cuer {
 
     // Create the QR code.
     const qrcode = React.useMemo(() => {
-      let errorcorrection = props.errorcorrection
+      let errorCorrection = props.errorCorrection
       // If the QR code has an arena, use a higher error correction level.
-      if (hasArena && errorcorrection === 'low') errorcorrection = 'medium'
+      if (hasArena && errorCorrection === 'low') errorCorrection = 'medium'
       return QrCode.create(value, {
-        errorcorrection,
+        errorCorrection,
         version,
       })
-    }, [value, hasArena, props.errorcorrection, version])
+    }, [value, hasArena, props.errorCorrection, version])
 
     const cellSize = 1
     const edgeSize = qrcode.edgeLength * cellSize

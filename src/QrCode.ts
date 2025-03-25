@@ -8,11 +8,11 @@ export type QrCode = {
 }
 
 export function create(value: string, options: QrCode.Options = {}): QrCode {
-  const { errorcorrection, version } = options
+  const { errorCorrection, version } = options
 
   const grid = encodeQR(value, 'raw', {
     border: 0,
-    ecc: errorcorrection,
+    ecc: errorCorrection,
     scale: 1,
     version: version,
   })
@@ -30,7 +30,7 @@ export function create(value: string, options: QrCode.Options = {}): QrCode {
 
 export declare namespace QrCode {
   type Options = {
-    errorcorrection?: 'high' | 'low' | 'medium' | 'quartile' | undefined
+    errorCorrection?: 'high' | 'low' | 'medium' | 'quartile' | undefined
     version?: number | undefined
   }
 }

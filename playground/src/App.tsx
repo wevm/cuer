@@ -3,7 +3,7 @@ import { Cuer } from 'cuer'
 export function App() {
   return (
     <div style={{ display: 'flex', gap: 20 }}>
-      <Cuer errorcorrection="low" size="20vh" value="https://wevm.dev" />
+      <Cuer errorCorrection="low" size="20vh" value="https://wevm.dev" />
 
       <Cuer
         arena="https://img.decrypt.co/insecure/rs:fit:2048:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2019/04/vitalik-head-gID_7.jpeg@webp"

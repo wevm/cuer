@@ -146,7 +146,7 @@ export function App() {
       <div className="absolute top-0 max-sm:top-0 -z-1">
         <div className="relative overflow-hidden">
           <Cuer.Root
-            errorcorrection="high"
+            errorCorrection="high"
             size="600px"
             value="abcabasdasdnjakjdnaksdnasjnkdnjasdkasnasdnasjdnajskdnajksndajksdnajksdnajksdnajksndajksndjaksndajskndajksndajksndjaksdnjkansdjkasndjkansdjkasndjkasdnasjkdnakjsndkjasndjkasndjkasndjknasdjkasndjkasndjkasndsdjgbsdfhgbdfhjgbdfhjgbjdksajksandjaksnsdjndsandjkaskdnasndjkasndnasjdnanskdnjasjdnkajsndjkasdjkasnd"
           >
