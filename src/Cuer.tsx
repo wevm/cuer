@@ -105,14 +105,14 @@ export namespace Cuer {
 
     // Create the QR code.
     const qrcode = React.useMemo(() => {
-      let errorCorrection = props.errorCorrection
+      let errorcorrection = props.errorcorrection
       // If the QR code has an arena, use a higher error correction level.
-      if (hasArena && errorCorrection === 'low') errorCorrection = 'medium'
+      if (hasArena && errorcorrection === 'low') errorcorrection = 'medium'
       return QrCode.create(value, {
-        errorCorrection,
+        errorcorrection,
         version,
       })
-    }, [value, hasArena, props.errorCorrection, version])
+    }, [value, hasArena, props.errorcorrection, version])
 
     const cellSize = 1
     const edgeSize = qrcode.edgeLength * cellSize
