@@ -1,5 +1,11 @@
 # cuer
 
+## 0.0.3
+
+### Patch Changes
+
+- [#5](https://github.com/wevm/cuer/pull/5) [`ae0a925`](https://github.com/wevm/cuer/commit/ae0a925a045eea69585df51a32c7216c5bd0f447) Thanks [@DanielSinclair](https://github.com/DanielSinclair)! - Fixed unintended forwarding of the `errorCorrection` prop to SVG elements used by the QRCode component to prevent React warning.
+
 ## 0.0.2
 
 ### Patch Changes
