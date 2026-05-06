@@ -11,11 +11,14 @@ export function create(value: string, options: QrCode.Options = {}): QrCode {
   const { errorCorrection, version } = options
 
   const grid = encodeQR(value, 'raw', {
-    border: 0,
+    border: 1,
     ecc: errorCorrection,
     scale: 1,
     version: version,
   })
+    // Remove `border: 1` (`qr >=0.6` only allows positive numbers).
+    .slice(1, -1)
+    .map((row) => row.slice(1, -1))
 
   const finderLength = 7
   const edgeLength = grid.length
