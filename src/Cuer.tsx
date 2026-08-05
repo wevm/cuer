@@ -385,7 +385,7 @@ export namespace Cuer {
 
     const start = Math.ceil(edgeSize / 2 - arenaSize / 2)
     const size = arenaSize + (arenaSize % 2)
-    const padding = cellSize / 2
+    const padding = Math.max(Math.ceil(cellSize / 2), 1)
 
     return (
       <foreignObject x={start} y={start} width={size} height={size}>
