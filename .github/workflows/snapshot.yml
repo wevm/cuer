@@ -20,14 +20,16 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
 
+      - name: Update npm
+        # Trusted publishing (OIDC) needs npm 11.5.1 or later.
+        run: npm install -g npm@11.19.1
+
       - name: Publish Snapshots
         continue-on-error: true
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           snapshot=$(git branch --show-current | tr -cs '[:alnum:]-' '-' | tr '[:upper:]' '[:lower:]' | sed 's/-$//')
-          npm config set "//registry.npmjs.org/:_authToken" "$NPM_TOKEN"
           pnpm clean
           pnpm changeset version --no-git-tag --snapshot $snapshot
           pnpm changeset:prepublish
