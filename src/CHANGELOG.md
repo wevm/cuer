@@ -1,5 +1,11 @@
 # cuer
 
+## 0.0.4
+
+### Patch Changes
+
+- [#14](https://github.com/wevm/cuer/pull/14) [`ecb56de`](https://github.com/wevm/cuer/commit/ecb56de60f4be1fd6088e12152eee8e114375bd6) Thanks [@jxom](https://github.com/jxom)! - Added support for `qr@0.6`.
+
 ## 0.0.3
 
 ### Patch Changes
